@@ -1,0 +1,153 @@
+name: CI
+permissions:
+  contents: read
+  pull-requests: read
+  actions: read
+env:
+  GIT_NAME: j2g-redacted
+  NAMESPACE: j2g-redacted
+  SONARQUBE_TAGS: j2g-redacted
+  DEPENDENCIES: j2g-redacted
+  BACKEND_PROFILES: j2g-redacted
+  BACKEND_ADDONS: j2g-redacted
+  CURRENT_VOLTO: j2g-redacted
+  PREVIOUS_VOLTO: j2g-redacted
+  IMAGE_NAME: ${{ github.run_id }}
+  NODEJS_VERSION: j2g-redacted
+  CHANGE_ID: ${{ github.event.pull_request.number || (github.event.issue.pull_request
+    && github.event.issue.number) || '' }}
+  CHANGE_TARGET: ${{ github.event.pull_request.base.ref || '' }}
+  GITHUB_COMMENT: ${{ github.event.comment.body || '' }}
+  SKIP_TESTS: ''
+  J2G_RUN_ID: eea__volto-plotlycharts__674a3b59-eval3-r0-build_feedback-after-h0
+  J2G_SCENARIO_ID: eea__volto-plotlycharts__674a3b59-eval3-r0-build_feedback-after-h0
+  J2G_FAULTS: post_always
+jobs:
+  pipeline:
+    if: ${{ github.event_name != 'issue_comment' || github.event.issue.pull_request
+      != null }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: j2g-probe-install
+      env:
+        J2G_OP_B64: IyEvdXNyL2Jpbi9lbnYgYmFzaAojIEZyYW1ld29yayB0ZXN0IGRvdWJsZTogcmVjb3JkcyBvbmUgaW5zdHJ1bWVudGVkIG9wZXJhdGlvbiBldmVudC4Kc2V0IC1vIHBpcGVmYWlsCm9wPSIkMSI7IHNoaWZ0IHx8IHRydWUKcmVhZHM9IiI7IHdyaXRlcz0iIjsgcmVxdWVzdD0iIgp3aGlsZSBbICQjIC1ndCAwIF07IGRvCiAgY2FzZSAiJDEiIGluCiAgICAtLXJlYWRzKSByZWFkcz0iJDIiOyBzaGlmdCAyIDs7CiAgICAtLXdyaXRlcykgd3JpdGVzPSIkMiI7IHNoaWZ0IDIgOzsKICAgIC0tcmVxdWVzdCkgcmVxdWVzdD0iJDIiOyBzaGlmdCAyIDs7CiAgICAqKSBzaGlmdCA7OwogIGVzYWMKZG9uZQpjbG9ja19zb3VyY2U9d2FsbDsgY2xvY2tfZG9tYWluPSIiCmlmIFsgLXIgL3Byb2MvdXB0aW1lIF0gJiYgY29tbWFuZCAtdiBhd2sgPi9kZXYvbnVsbCAmJiBjb21tYW5kIC12IGhvc3RuYW1lID4vZGV2L251bGw7IHRoZW4KICBjbG9ja19zb3VyY2U9bW9ub3RvbmljCiAgaG9zdD0kKGhvc3RuYW1lKQogIGlmIFsgLW4gIiR7R0lUSFVCX0pPQjotfSIgXTsgdGhlbiBjbG9ja19kb21haW49ImdoYToke0dJVEhVQl9KT0J9OiRob3N0IjsgZmkKICBpZiBbIC1uICIke05PREVfTkFNRTotfSIgXTsgdGhlbiBjbG9ja19kb21haW49ImplbmtpbnM6JHtOT0RFX05BTUV9OiRob3N0IjsgZmkKZmkKbm93KCkgewogIGlmIFsgIiRjbG9ja19zb3VyY2UiID0gbW9ub3RvbmljIF07IHRoZW4gYXdrICd7cHJpbnQgJDF9JyAvcHJvYy91cHRpbWUKICBlbHNlIGRhdGUgKyVzLiVOOyBmaQp9CnN0YXJ0PSQobm93KTsgc3RhdHVzPXN1Y2Nlc3M7IHJkPSIiOyB3cj0iIjsgb3JpZ2lucz0iIjsgYWxsPSIiOyBjb2xsZWN0aW9uX2Vycm9ycz0iIgpbIC1uICIke0oyR19SVU5fSUQ6LX0iIF0gfHwgc3RhdHVzPWZhaWx1cmUKaW5zdGFuY2U9IiRvcC0ke0oyR19SVU5fSUQ6LXJ1bn0tJChkYXRlICslcyVOKS0kJC0kUkFORE9NIgpwcm9kdWNlcl9pbnN0YW5jZT0iIjsgcHJvZHVjZXJfcnVuPSIiCklGUz0sIHJlYWQgLXJhIFIgPDw8ICIkcmVhZHMiCmZvciBwIGluICIke1JbQF19IjsgZG8KICBbIC16ICIkcCIgXSAmJiBjb250aW51ZQogIGlmIFsgLWYgIiRwIiBdOyB0aGVuCiAgICBpZiBkPSQoc2hhMjU2c3VtICIkcCIgfCBjdXQgLWMxLTE2KTsgdGhlbgogICAgICByZD0iJHJkXCIkcFwiOlwiJGRcIiwiOyBhbGw9IiRhbGwkZCIKICAgIGVsc2UKICAgICAgcmQ9IiRyZFwiJHBcIjpudWxsLCI7IHN0YXR1cz1mYWlsdXJlOyBjb2xsZWN0aW9uX2Vycm9ycz0iJGNvbGxlY3Rpb25fZXJyb3JzXCIkcFwiLCIKICAgIGZpCiAgICBJRlM9JCdcdCcgcmVhZCAtciBtYXJrZXIgb3JpZ2luX3J1biBvcmlnaW5fb3Agb3JpZ2luX2luc3RhbmNlIDwgIiRwIiB8fCB0cnVlCiAgICBpZiBbICIkbWFya2VyIiA9IEoyR19PUklHSU4gXSAmJiBbIC1uICIkb3JpZ2luX2luc3RhbmNlIiBdOyB0aGVuCiAgICAgIG9yaWdpbnM9IiRvcmlnaW5zXCIkcFwiOntcInJ1bl9pZFwiOlwiJG9yaWdpbl9ydW5cIixcIm9wZXJhdGlvbl9pZFwiOlwiJG9yaWdpbl9vcFwiLFwib3BlcmF0aW9uX2luc3RhbmNlX2lkXCI6XCIkb3JpZ2luX2luc3RhbmNlXCJ9LCIKICAgICAgcHJvZHVjZXJfaW5zdGFuY2U9IiRvcmlnaW5faW5zdGFuY2UiOyBwcm9kdWNlcl9ydW49IiRvcmlnaW5fcnVuIgogICAgICBbICIkb3JpZ2luX3J1biIgPSAiJHtKMkdfUlVOX0lEOi19IiBdIHx8IHN0YXR1cz1mYWlsdXJlCiAgICBmaQogIGVsc2UgcmQ9IiRyZFwiJHBcIjpudWxsLCI7IHN0YXR1cz1mYWlsdXJlOyBmaQpkb25lCmNhc2UgIiwke0oyR19GQVVMVFM6LX0sIiBpbiAqIiwkb3AsIiopIHN0YXR1cz1mYWlsdXJlIDs7IGVzYWMKaWYgWyAiJHN0YXR1cyIgPSBzdWNjZXNzIF07IHRoZW4KICBJRlM9LCByZWFkIC1yYSBXciA8PDwgIiR3cml0ZXMiCiAgZm9yIHAgaW4gIiR7V3JbQF19IjsgZG8KICAgIFsgLXogIiRwIiBdICYmIGNvbnRpbnVlCiAgICBpZiBta2RpciAtcCAiJChkaXJuYW1lICIkcCIpIiAmJgogICAgICAgcHJpbnRmICdKMkdfT1JJR0lOXHQlc1x0JXNcdCVzXG4nICIkSjJHX1JVTl9JRCIgIiRvcCIgIiRpbnN0YW5jZSIgPiAiJHAiICYmCiAgICAgICBkPSQoc2hhMjU2c3VtICIkcCIgfCBjdXQgLWMxLTE2KTsgdGhlbgogICAgICB3cj0iJHdyXCIkcFwiOlwiJGRcIiwiOyBhbGw9IiRhbGwkZCIKICAgIGVsc2UKICAgICAgc3RhdHVzPWZhaWx1cmU7IGNvbGxlY3Rpb25fZXJyb3JzPSIkY29sbGVjdGlvbl9lcnJvcnNcIiRwXCIsIgogICAgZmkKICBkb25lCmZpCnJlcXVlc3RfanNvbj1udWxsCmlmIFsgLW4gIiRyZXF1ZXN0IiBdICYmIFsgIiRzdGF0dXMiID0gc3VjY2VzcyBdOyB0aGVuCiAgcmVxdWVzdF9qc29uPSJ7XCJraW5kXCI6XCIke3JlcXVlc3QlJToqfVwiLFwidGFyZ2V0XCI6XCIke3JlcXVlc3QjKjp9XCJ9IgpmaQpkaWdlc3Q9JChwcmludGYgJyVzJyAiJGFsbCIgfCBzaGEyNTZzdW0gfCBjdXQgLWMxLTE2KQplY2hvICJKMkdfUFJPQkUge1wib3BlcmF0aW9uX2lkXCI6XCIkb3BcIixcIm9wZXJhdGlvbl9pbnN0YW5jZV9pZFwiOlwiJGluc3RhbmNlXCIsXCJydW5faWRcIjpcIiR7SjJHX1JVTl9JRDotfVwiLFwic2NlbmFyaW9faWRcIjpcIiR7SjJHX1NDRU5BUklPX0lEOi19XCIsXCJzdGF0dXNcIjpcIiRzdGF0dXNcIixcImNsb2NrX3NvdXJjZVwiOlwiJGNsb2NrX3NvdXJjZVwiLFwiY2xvY2tfZG9tYWluXCI6XCIkY2xvY2tfZG9tYWluXCIsXCJzdGFydFwiOiRzdGFydCxcImVuZFwiOiQobm93KSxcInJlYWRzXCI6eyR7cmQlLH19LFwid3JpdGVzXCI6eyR7d3IlLH19LFwicmVhZF9vcmlnaW5zXCI6eyR7b3JpZ2lucyUsfX0sXCJjb2xsZWN0aW9uX2Vycm9yc1wiOlske2NvbGxlY3Rpb25fZXJyb3JzJSx9XSxcInByb2R1Y2VyX2luc3RhbmNlX2lkXCI6XCIkcHJvZHVjZXJfaW5zdGFuY2VcIixcInByb2R1Y2VyX3J1bl9pZFwiOlwiJHByb2R1Y2VyX3J1blwiLFwiZXh0ZXJuYWxfcmVxdWVzdFwiOiRyZXF1ZXN0X2pzb24sXCJkaWdlc3RcIjpcIiRkaWdlc3RcIn0iClsgIiRzdGF0dXMiID0gc3VjY2VzcyBdCg==
+      run: mkdir -p /tmp/j2g && printf "%s" "$J2G_OP_B64" | base64 -d > /tmp/j2g/j2g_op
+        && chmod +x /tmp/j2g/j2g_op && echo /tmp/j2g >> "$GITHUB_PATH"
+    - name: Set PR context
+      id: pr_context
+      if: ${{ github.event_name == 'issue_comment' && github.event.issue.pull_request
+        }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: "pr_number=\"${{ github.event.issue.number }}\"\npr_json=$(gh api repos/${{\
+        \ github.repository }}/pulls/$pr_number)\nbase_ref=$(echo \"$pr_json\" | jq\
+        \ -r .base.ref)\nbase_sha=$(echo \"$pr_json\" | jq -r .base.sha)\nhead_sha=$(echo\
+        \ \"$pr_json\" | jq -r .head.sha)\nhead_ref=$(echo \"$pr_json\" | jq -r .head.ref)\n\
+        echo \"CHANGE_TARGET=$base_ref\" >> \"$GITHUB_ENV\"\necho \"CHANGE_ID=$pr_number\"\
+        \ >> \"$GITHUB_ENV\"\necho \"CHANGELOG_BASE=$base_sha\" >> \"$GITHUB_ENV\"\
+        \necho \"CHANGELOG_HEAD=$head_sha\" >> \"$GITHUB_ENV\"\necho \"CHANGE_HEAD_REF=$head_ref\"\
+        \ >> \"$GITHUB_ENV\"\n{\n  echo \"base_ref=$base_ref\"\n  echo \"base_sha=$base_sha\"\
+        \n  echo \"head_sha=$head_sha\"\n  echo \"head_ref=$head_ref\"\n  echo \"\
+        change_id=$pr_number\"\n} >> \"$GITHUB_OUTPUT\"\n"
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: ${{ (github.event_name == 'issue_comment' && steps.pr_context.outputs.head_sha)
+          || '' }}
+    - name: Determine changelog
+      id: changelog
+      shell: bash
+      run: "set +e\nautomated_release=false\nif [ -n \"$CHANGELOG_BASE\" ] && [ -n\
+        \ \"$CHANGELOG_HEAD\" ]; then\n  range=\"$CHANGELOG_BASE..$CHANGELOG_HEAD\"\
+        \nelif [ \"${{ github.event_name }}\" = \"pull_request\" ]; then\n  range=\"\
+        ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha\
+        \ }}\"\nelif [ \"${{ github.event_name }}\" = \"push\" ]; then\n  range=\"\
+        ${{ github.event.before }}..${{ github.event.after }}\"\n  if [[ \"$range\"\
+        \ == \"0000000000000000000000000000000000000000..\"* ]]; then\n    range=\"\
+        HEAD~1..HEAD\"\n  fi\nelse\n  range=\"HEAD~1..HEAD\"\nfi\nif git log \"$range\"\
+        \ --pretty=%B 2>/dev/null | grep -qE '^Automated release [0-9.]+$'; then\n\
+        \  automated_release=true\nfi\necho \"automated_release=$automated_release\"\
+        \ >> \"$GITHUB_OUTPUT\"\n"
+    - name: Release
+      if: ${{ github.event_name != 'issue_comment' && env.CHANGE_ID == '' && github.ref
+        == 'refs/heads/master' }}
+      run: j2g_op release
+    - name: Check if testing needed
+      if: ${{ github.event_name != 'issue_comment' && env.CHANGE_ID == '' && github.ref
+        != 'refs/heads/master' && github.ref != 'refs/heads/develop' }}
+      run: j2g_op check_if_testing_needed
+    - name: Testing
+      if: ${{ (env.CHANGE_ID != '' && (env.CHANGE_TARGET == 'develop' || steps.pr_context.outputs.base_ref
+        == 'develop')) || (env.CHANGE_ID == '' && (steps.changelog.outputs.automated_release
+        != 'true' || github.ref == 'refs/heads/master')) }}
+      shell: bash
+      env:
+        GITHUB_REF: ${{ github.ref }}
+        AUTOMATED_RELEASE: ${{ steps.changelog.outputs.automated_release }}
+      run: "set +e\nstatus=0\nrun_volto18() {\n  set -e\n  j2g_op build_test_image\n\
+        \  if [ \"$CHANGE_ID\" = \"\" ] && [ \"$GITHUB_REF\" != \"refs/heads/master\"\
+        \ ]; then\n    j2g_op fix_code\n  fi\n  if [ \"$SKIP_TESTS\" = \"\" ]; then\n\
+        \    j2g_op es_lint\n    j2g_op style_lint\n    j2g_op prettier\n    j2g_op\
+        \ unit_tests\n    j2g_op integration_tests --writes cypress-screenshots-current/**,cypress-videos-current/**/*.mp4\n\
+        \  fi\n  report=false\n  if [ \"$CHANGE_ID\" != \"\" ] && [ \"$CHANGE_TARGET\"\
+        \ = \"develop\" ] && [ \"$SKIP_TESTS\" = \"\" ]; then\n    report=true\n \
+        \ fi\n  if [ \"$CHANGE_ID\" = \"\" ] && [ \"$SKIP_TESTS\" = \"\" ]; then\n\
+        \    if { [ \"$GITHUB_REF\" = \"refs/heads/develop\" ] && [ \"$AUTOMATED_RELEASE\"\
+        \ != \"true\" ]; } || [ \"$GITHUB_REF\" = \"refs/heads/master\" ]; then\n\
+        \      report=true\n    fi\n  fi\n  if [ \"$report\" = true ]; then\n    j2g_op\
+        \ report_to_sonarqube\n  fi\n}\nrun_volto17() {\n  set -e\n  if [ \"$SKIP_TESTS\"\
+        \ = \"\" ] && [ -n \"$(echo \"$PREVIOUS_VOLTO\" | xargs)\" ]; then\n    j2g_op\
+        \ build_test_image_2\n    j2g_op unit_tests_2\n    j2g_op integration_tests_2\
+        \ --writes cypress-screenshots-previous/**,cypress-videos-previous/**/*.mp4\n\
+        \  fi\n}\nrun_volto18 &\npid18=$!\nrun_volto17 &\npid17=$!\nwait $pid18 ||\
+        \ status=1\nwait $pid17 || status=1\nj2g_op testing_post_always || status=1\n\
+        exit $status\n"
+    - name: SonarQube compare to master
+      if: ${{ (env.CHANGE_ID != '' && (env.CHANGE_TARGET == 'develop' || steps.pr_context.outputs.base_ref
+        == 'develop') && env.SKIP_TESTS == '') || (env.SKIP_TESTS == '' && env.CHANGE_ID
+        == '' && github.ref == 'refs/heads/develop' && steps.changelog.outputs.automated_release
+        != 'true') }}
+      run: j2g_op sonarqube_compare_to_master
+    - name: Storybook
+      if: ${{ contains(env.GITHUB_COMMENT, '@eea-jenkins build all') || contains(env.GITHUB_COMMENT,
+        '@eea-jenkins build storybook') }}
+      run: j2g_op storybook
+    - name: Pull Request
+      if: ${{ env.CHANGE_ID != '' && (env.CHANGE_TARGET == 'master' || steps.pr_context.outputs.base_ref
+        == 'master') }}
+      run: j2g_op pull_request
+    - name: Post always
+      if: ${{ always() }}
+      run: j2g_op post_always
+    - name: Post changed
+      if: ${{ always() }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        CURRENT_STATUS: ${{ job.status }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+        PR_NUMBER: ${{ github.event.pull_request.number || (github.event.issue.pull_request
+          && github.event.issue.number) || '' }}
+        BRANCH_NAME: ${{ steps.pr_context.outputs.head_ref || github.head_ref || github.ref_name
+          }}
+        WORKFLOW_REF: ${{ github.workflow_ref }}
+        WORKFLOW_NAME: ${{ github.workflow }}
+      run: "set +e\nchanged=false\nprevious_conclusion=\"\"\nworkflow_file=$(printf\
+        \ '%s' \"$WORKFLOW_REF\" | sed -E 's#^.*/\\.github/workflows/([^@]+)@.*$#\\\
+        1#')\nif [ -z \"$workflow_file\" ] || [ \"$workflow_file\" = \"$WORKFLOW_REF\"\
+        \ ]; then\n  workflow_file=\"$WORKFLOW_NAME\"\nfi\nrepo=\"${{ github.repository\
+        \ }}\"\nruns_json=$(gh api \"repos/${repo}/actions/workflows/${workflow_file}/runs?per_page=100\"\
+        \ 2>/dev/null)\nif [ -n \"$runs_json\" ]; then\n  previous_conclusion=$(printf\
+        \ '%s' \"$runs_json\" | jq -r --arg current \"$GITHUB_RUN_ID\" --arg pr \"\
+        $PR_NUMBER\" --arg branch \"$BRANCH_NAME\" '\n    [ .workflow_runs[]\n   \
+        \   | select((.id|tostring) != $current)\n      | select(.status == \"completed\"\
+        )\n      | select(\n          if $pr != \"\" then\n            ((.pull_requests\
+        \ // []) | map(.number|tostring) | index($pr) != null)\n          else\n \
+        \           (.head_branch == $branch)\n          end\n        )\n    ] | sort_by(.created_at)\
+        \ | reverse | .[0].conclusion // \"\"\n  ')\nfi\nif [ -n \"$previous_conclusion\"\
+        \ ] && [ \"$previous_conclusion\" != \"$CURRENT_STATUS\" ]; then\n  changed=true\n\
+        fi\nif [ \"$changed\" = true ]; then\n  j2g_op post_changed\nfi\n"
+'on':
+  workflow_dispatch: null
